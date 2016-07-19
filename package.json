@@ -12,5 +12,12 @@
     "GIS"
   ],
   "author": "Jack Zeiders",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "speed-filter": "0.0.0",
+    "victor": "^1.1.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
 }
