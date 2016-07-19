@@ -4,7 +4,7 @@
   "description": "Converts gps points to motion vectors",
   "main": "vectorize.js",
   "scripts": {
-    "test": "mocha tests -watch "
+    "test": "mocha tests"
   },
   "keywords": [
     "GPS",
