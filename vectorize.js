@@ -28,14 +28,14 @@ Vectorize.prototype.toVelocities = function(points) {
 };
 Vectorize.prototype.velocityVector = function(pt1, pt2) {
     var speed = speedFilter.calcSpeeds([pt1, pt2]),
-        latDif = Math.abs(pt1.lat - pt2.lat),
-        lngDif = Math.abs(pt1.lng - pt2.lng),
-        x = speed * Math.cos(Math.atan(latDif / lngDif)),
-        y = speed * Math.sin(Math.atan(latDif / lngDif));
+        latDif = pt2.lat - pt1.lat,
+        lngDif = pt2.lng - pt1.lng,
+        x = Math.abs(speed * Math.cos(Math.atan(latDif / lngDif)))
+        y = Math.abs(speed * Math.sin(Math.atan(latDif / lngDif)));
         if(pt1.lat > pt2.lat)
-          x*=-1;
-        if(pt1.lng > pt2.lng)
           y*=-1;
+        if(pt1.lng > pt2.lng)
+          x*=-1;
     return new Victor(x, y);
 };
 Vectorize.prototype.toPositions = function(points) {

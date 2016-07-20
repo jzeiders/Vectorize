@@ -1,52 +1,45 @@
 var chai = require("chai");
 var expect = chai.expect;
 var Vectorize = require('./vectorize.js');
-var speedFilter = require('speed-filter'),
-points = [{
-    lng: -88.19593,
-    lat: 40.1108353,
-    time: '2016-07-11T17:48:42.489Z'
+var speedFilter = require('speed-filter');
+var points = [{
+    lat: 0.000000,
+    lng: 0.0000,
+    time: '2016-07-11T17:48:42.489Z',
+    tag: "A"
 }, {
-    lng: -88.1944071,
-    lat: 40.1079313,
-    time: '2016-07-11T17:52:39.716Z'
+    lat: 0.00000001,
+    lng: 0.01,
+    time: '2016-07-11T18:20:42.489Z',
+    tag: "B"
+
 }, {
-    lng: -88.1953208,
-    lat: 40.1077055,
-    time: '2016-07-11T17:52:57.270Z'
+    lat: 0.01,
+    lng: 0.0100001,
+    time: '2016-07-11T18:21:20.489Z',
+    tag: "C"
+
 }, {
-    lng: -88.1955493,
-    lat: 40.1062688,
-    time: '2016-07-11T17:53:33.622Z'
+    lat: 0.000001,
+    lng: 0.011,
+    time: '2016-07-11T18:21:40.489Z',
+    tag: "D"
+
 }, {
-    lng: -88.1949401,
-    lat: 40.1056192,
-    time: '2016-07-11T17:54:50.591Z'
-}, {
-    lng: -88.1932268,
-    lat: 40.1060327,
-    time: '2016-07-11T17:55:59.240Z'
-}, {
-    lng: -88.1917419,
-    lat: 40.1051694,
-    time: '2016-07-11T17:56:12.507Z'
-}, {
-    lng: -88.1921988,
-    lat: 40.1058967,
-    time: '2016-07-11T17:57:11.741Z'
-}, {
-    lng: -88.1896857,
-    lat: 40.1052974,
-    time: '2016-07-11T17:57:29.459Z'
-}, {
-    lng: -88.1895334,
-    lat: 40.105215,
-    time: '2016-07-11T17:59:52.109Z'
-}, {
-    lng: -88.1867917,
-    lat: 40.1062125,
-    time: '2016-07-11T18:00:09.763Z'
-}];
+lat: 0.002,
+lng: 0.002,
+time: '2016-07-11T18:50:20.489Z',
+tag: "E"
+
+
+},{
+lat: 0.0021,
+lng: 0.0021,
+time: '2016-07-11T18:50:37.489Z',
+tag: "F"
+
+},
+];
 describe("To Position Vectors", function() {
     var positions = Vectorize.toPositions(points);
     it("should return vectors", function() {
@@ -61,6 +54,7 @@ describe("To Position Vectors", function() {
 });
 describe("To Velocity Vectors", function() {
     var velocities = Vectorize.toVelocities(points);
+    console.log(velocities);
     it("should return vectors", function() {
         for (var i = 0; i < velocities.length; i++) {
             expect(Math.abs(velocities[i].x)).to.be.above(0);
@@ -101,18 +95,18 @@ describe("Produce Acceleration Vector", function() {
     var vels = Vectorize.toVelocities(points.slice(0,3));
     var accel = Vectorize.accelerationVector(vels[0],vels[1],speedFilter.calcElapsed(points[1].time,points[2].time));
     it("should have the correct magnitude", function(){
-      expect(Math.abs(accel.magnitude())).to.be.below(0.5);
+      expect(Math.abs(accel.magnitude())).to.be.below(0.8);
     });
 });
 describe("Produce Velocity Vector", function() {
   var vel = Vectorize.velocityVector(points[0],points[1]);
     it("should have the correct magnitude", function(){
-      expect(Math.abs(vel.magnitude()-1.47)).to.be.below(0.05);
+      expect(Math.abs(vel.magnitude()-0.58)).to.be.below(0.05);
     });
 });
 describe("Produce Position Vector", function() {
     var pos = Vectorize.positionVector(points[0],points[1]);
     it("should have the correct magnitude", function(){
-      expect(Math.abs(pos.magnitude()-348)).to.be.below(1);
+      expect(Math.abs(pos.magnitude()-1112)).to.be.below(1);
     });
 });
