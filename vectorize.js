@@ -32,6 +32,10 @@ Vectorize.prototype.velocityVector = function(pt1, pt2) {
         lngDif = Math.abs(pt1.lng - pt2.lng),
         x = speed * Math.cos(Math.atan(latDif / lngDif)),
         y = speed * Math.sin(Math.atan(latDif / lngDif));
+        if(pt1.lat > pt2.lat)
+          x*=-1;
+        if(pt1.lng > pt2.lng)
+          y*=-1;
     return new Victor(x, y);
 };
 Vectorize.prototype.toPositions = function(points) {
