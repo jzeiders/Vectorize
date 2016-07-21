@@ -30,7 +30,7 @@ Vectorize.prototype.velocityVector = function(pt1, pt2) {
     var speed = speedFilter.calcSpeeds([pt1, pt2]),
         latDif = pt2.lat - pt1.lat,
         lngDif = pt2.lng - pt1.lng,
-        x = Math.abs(speed * Math.cos(Math.atan(latDif / lngDif)))
+        x = Math.abs(speed * Math.cos(Math.atan(latDif / lngDif)));
         y = Math.abs(speed * Math.sin(Math.atan(latDif / lngDif)));
         if(pt1.lat > pt2.lat)
           y*=-1;
