@@ -30,12 +30,12 @@ Vectorize.prototype.velocityVector = function(pt1, pt2) {
     var speed = speedFilter.calcSpeeds([pt1, pt2]),
         latDif = pt2.lat - pt1.lat,
         lngDif = pt2.lng - pt1.lng,
-        x = Math.abs(speed * Math.cos(Math.atan(latDif / lngDif)));
+        x = Math.abs(speed * Math.cos(Math.atan(latDif / lngDif))),
         y = Math.abs(speed * Math.sin(Math.atan(latDif / lngDif)));
-        if(pt1.lat > pt2.lat)
-          y*=-1;
-        if(pt1.lng > pt2.lng)
-          x*=-1;
+    if (pt1.lat > pt2.lat)
+        y *= -1;
+    if (pt1.lng > pt2.lng)
+        x *= -1;
     return new Victor(x, y);
 };
 Vectorize.prototype.toPositions = function(points) {
@@ -48,10 +48,14 @@ Vectorize.prototype.toPositions = function(points) {
 };
 Vectorize.prototype.positionVector = function(pt1, pt2) {
     var dist = getDistance(pt1.lat, pt1.lng, pt2.lat, pt2.lng),
-        latDif = Math.abs(pt1.lat - pt2.lat),
-        lngDif = Math.abs(pt1.lng - pt2.lng),
-        x = dist * Math.cos(Math.atan(latDif / lngDif)),
-        y = dist * Math.sin(Math.atan(latDif / lngDif));
+        latDif = pt2.lat - pt1.lat,
+        lngDif = pt2.lng - pt1.lng,
+        x = Math.abs(dist * Math.cos(Math.atan(latDif / lngDif))),
+        y = Math.abs(dist * Math.sin(Math.atan(latDif / lngDif)));
+    if (pt1.lat > pt2.lat)
+        y *= -1;
+    if (pt1.lng > pt2.lng)
+        x *= -1;
     return new Victor(x, y);
 };
 Vectorize.prototype.standardize = function(points) {
